@@ -1,0 +1,12 @@
+C:\Users\amini\source\repos\AktieHandelRepoLib\AktieHandelRepoLib\bin\Debug\net10.0\AktieHandelRepoLib.deps.json
+C:\Users\amini\source\repos\AktieHandelRepoLib\AktieHandelRepoLib\bin\Debug\net10.0\AktieHandelRepoLib.dll
+C:\Users\amini\source\repos\AktieHandelRepoLib\AktieHandelRepoLib\bin\Debug\net10.0\AktieHandelRepoLib.pdb
+C:\Users\amini\source\repos\AktieHandelRepoLib\AktieHandelRepoLib\obj\Debug\net10.0\AktieHandelRepoLib.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\amini\source\repos\AktieHandelRepoLib\AktieHandelRepoLib\obj\Debug\net10.0\AktieHandelRepoLib.AssemblyInfoInputs.cache
+C:\Users\amini\source\repos\AktieHandelRepoLib\AktieHandelRepoLib\obj\Debug\net10.0\AktieHandelRepoLib.AssemblyInfo.cs
+C:\Users\amini\source\repos\AktieHandelRepoLib\AktieHandelRepoLib\obj\Debug\net10.0\AktieHandelRepoLib.csproj.CoreCompileInputs.cache
+C:\Users\amini\source\repos\AktieHandelRepoLib\AktieHandelRepoLib\obj\Debug\net10.0\AktieHandelRepoLib.dll
+C:\Users\amini\source\repos\AktieHandelRepoLib\AktieHandelRepoLib\obj\Debug\net10.0\refint\AktieHandelRepoLib.dll
+C:\Users\amini\source\repos\AktieHandelRepoLib\AktieHandelRepoLib\obj\Debug\net10.0\AktieHandelRepoLib.pdb
+C:\Users\amini\source\repos\AktieHandelRepoLib\AktieHandelRepoLib\obj\Debug\net10.0\ref\AktieHandelRepoLib.dll
+C:\Users\amini\source\repos\AktieHandelRepoLib\AktieHandelRepoLib\obj\Debug\net10.0\AktieHandelRepoLib.csproj.AssemblyReference.cache

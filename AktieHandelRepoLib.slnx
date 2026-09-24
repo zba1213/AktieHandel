@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="AktieHandelConsoleApp/AktieHandelConsoleApp.csproj" />
+  <Project Path="AktieHandelRepoLib.Test/AktieHandelRepoLib.Test.csproj" />
+  <Project Path="AktieHandelRepoLib/AktieHandelRepoLib.csproj" />
+  <Project Path="AktieHandelRestApi/AktieHandelRestApi.csproj" Id="ed6d3b25-b0cb-4c93-8f37-65ace5c69b1b" />
+</Solution>
