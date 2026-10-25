@@ -1,6 +1,74 @@
 @AktieHandelRestApi_HostAddress = http://localhost:5173
 
-GET {{AktieHandelRestApi_HostAddress}}/weatherforecast/
-Accept: application/json
+### Alle handler
+GET {{AktieHandelRestApi_HostAddress}}/api/AktieHandels
 
-###
+### Del af navn
+GET {{AktieHandelRestApi_HostAddress}}/api/AktieHandels?substring=novo
+
+### Antal lig med 10
+GET {{AktieHandelRestApi_HostAddress}}/api/AktieHandels?antal=10
+
+### Antal over 10 og del af navn
+GET {{AktieHandelRestApi_HostAddress}}/api/AktieHandels?substring=novo&antal=10&antalFilter=over
+
+### Antal under 10
+GET {{AktieHandelRestApi_HostAddress}}/api/AktieHandels?antal=10&antalFilter=under
+
+### Ugyldigt filter (400)
+GET {{AktieHandelRestApi_HostAddress}}/api/AktieHandels?antal=10&antalFilter=forkert
+
+### Ugyldigt heltal (400)
+GET {{AktieHandelRestApi_HostAddress}}/api/AktieHandels?antal=abc
+
+### Login: kopier token fra svaret til token-variablen nedenfor
+POST {{AktieHandelRestApi_HostAddress}}/api/auth/login
+Content-Type: application/json
+
+{"username":"admin","password":"1234"}
+
+### POST uden token: 401
+POST {{AktieHandelRestApi_HostAddress}}/api/AktieHandels
+Content-Type: application/json
+
+{"navn":"Novo Nordisk","antal":10,"handelsPris":100}
+
+### POST med token: 201
+@token = INDSAET_TOKEN_HER
+POST {{AktieHandelRestApi_HostAddress}}/api/AktieHandels
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{"navn":"Novo Nordisk","antal":10,"handelsPris":100}
+
+### DELETE uden token: 401
+DELETE {{AktieHandelRestApi_HostAddress}}/api/AktieHandels/1
+
+### DELETE med token: 200 hvis ID findes, ellers 404
+DELETE {{AktieHandelRestApi_HostAddress}}/api/AktieHandels/1
+Authorization: Bearer {{token}}
+
+### Exercise 6: User-login (kun læseadgang)
+POST {{AktieHandelRestApi_HostAddress}}/api/auth/login
+Content-Type: application/json
+
+{"username":"user","password":"1234"}
+
+### Indsæt User-token nedenfor. GET: 200
+@userToken = INDSAET_USER_TOKEN_HER
+GET {{AktieHandelRestApi_HostAddress}}/api/AktieHandels
+Authorization: Bearer {{userToken}}
+
+### User må ikke slette: 403
+DELETE {{AktieHandelRestApi_HostAddress}}/api/AktieHandels/1
+Authorization: Bearer {{userToken}}
+
+### User må ikke oprette: 403
+POST {{AktieHandelRestApi_HostAddress}}/api/AktieHandels
+Authorization: Bearer {{userToken}}
+Content-Type: application/json
+
+{"navn":"Novo Nordisk","antal":10,"handelsPris":100}
+
+### Uden token må man ikke læse: 401
+GET {{AktieHandelRestApi_HostAddress}}/api/AktieHandels

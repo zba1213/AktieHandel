@@ -36,6 +36,18 @@ namespace AktiehandelRepoLib.Tests
         }
 
         [TestMethod]
+        public void Search_FiltreOgValidering()
+        {
+            Assert.HasCount(3, _repository.Search());
+            Assert.AreEqual("Novo Nordisk", _repository.Search(substring: "NORD").Single().Navn);
+            Assert.AreEqual("Tesla", _repository.Search(antal: 10).Single().Navn);
+            Assert.AreEqual("Apple", _repository.Search(antal: 10, antalFilter: "over").Single().Navn);
+            Assert.AreEqual("Novo Nordisk", _repository.Search(antal: 10, antalFilter: "under").Single().Navn);
+            Assert.IsEmpty(_repository.Search(substring: "Tesla", antal: 20));
+            Assert.ThrowsExactly<ArgumentException>(() => _repository.Search(antalFilter: "forkert"));
+        }
+
+        [TestMethod]
         public void GetAll_ReturnererAlleHandler()
         {
             List<AktieHandel> result = _repository.GetAll();

@@ -42,6 +42,43 @@ namespace AktiehandelRepoLib
         }
 
         /// <summary>
+        /// Søger i navne og filtrerer valgfrit på antal og minimumskurs.
+        /// antalFilter kan være lig, over eller under.
+        /// </summary>
+        public List<AktieHandel> Search(
+            string? substring = null,
+            int? antal = null,
+            string antalFilter = "lig",
+            decimal? kurs = null,
+            string? navn = null)
+        {
+            string comparison = antalFilter.ToLowerInvariant();
+            if (comparison != "lig" && comparison != "over" && comparison != "under")
+            {
+                throw new ArgumentException("antalFilter skal være lig, over eller under.", nameof(antalFilter));
+            }
+
+            IEnumerable<AktieHandel> result = _aktieHandler;
+            if (!string.IsNullOrWhiteSpace(substring))
+                result = result.Where(x => x.Navn.Contains(substring, StringComparison.OrdinalIgnoreCase));
+            if (!string.IsNullOrWhiteSpace(navn))
+                result = result.Where(x => x.Navn.Equals(navn, StringComparison.OrdinalIgnoreCase));
+            if (kurs.HasValue)
+                result = result.Where(x => x.HandelsPris > kurs.Value);
+            if (antal.HasValue)
+            {
+                result = comparison switch
+                {
+                    "over" => result.Where(x => x.Antal > antal.Value),
+                    "under" => result.Where(x => x.Antal < antal.Value),
+                    _ => result.Where(x => x.Antal == antal.Value)
+                };
+            }
+
+            return result.ToList();
+        }
+
+        /// <summary>
         /// Tilføjer en ny aktiehandel og tildeler automatisk et ID.
         /// </summary>
         /// <param name="aktieHandel">Aktiehandlen der skal tilføjes.</param>

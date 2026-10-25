@@ -1,11 +1,13 @@
-﻿using AktiehandelRepoLib;
+﻿    using AktiehandelRepoLib;
 using AktieHandelRepoLib;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 
 namespace AktieHandelsRestApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class AktieHandelsController : ControllerBase
     {
         private static readonly AktieHandelRepo _repository =
@@ -13,9 +15,21 @@ namespace AktieHandelsRestApi.Controllers
 
         // GET: api/AktieHandel
         [HttpGet]
-        public ActionResult<IEnumerable<AktieHandel>> GetAll([FromQuery] decimal kurs, [FromQuery]string navn)
+        public ActionResult<IEnumerable<AktieHandel>> GetAll(
+            [FromQuery] string? substring = null,
+            [FromQuery] int? antal = null,
+            [FromQuery] string antalFilter = "lig",
+            [FromQuery] decimal? kurs = null,
+            [FromQuery] string? navn = null)
         {
-            return Ok(_repository.Get(kurs, navn));
+            try
+            {
+                return Ok(_repository.Search(substring, antal, antalFilter, kurs, navn));
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
         
         // GET: api/AktieHandel/1
@@ -33,6 +47,7 @@ namespace AktieHandelsRestApi.Controllers
 
         // POST: api/AktieHandel
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public ActionResult<AktieHandel> Add(AktieHandel handel)
         {
             try
@@ -52,6 +67,7 @@ namespace AktieHandelsRestApi.Controllers
 
         // PUT: api/AktieHandel/1
         [HttpPut("{id}")]
+        [Authorize(Roles = "Admin")]
         public ActionResult<AktieHandel> Update(
             int id,
             AktieHandel data)
@@ -76,6 +92,7 @@ namespace AktieHandelsRestApi.Controllers
 
         // DELETE: api/AktieHandel/1
         [HttpDelete("{id}")]
+        [Authorize(Roles = "Admin")]
         public ActionResult<AktieHandel> Delete(int id)
         {
             AktieHandel? deleted =
